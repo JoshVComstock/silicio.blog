@@ -3,13 +3,13 @@
 // datos legales — los obtiene de aquí, NUNCA hardcodeados.
 
 export const siteConfig = {
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://silicio.blog",
   name: process.env.NEXT_PUBLIC_SITE_NAME ?? "Silicio",
   description:
     "Tu medio en español sobre inteligencia artificial, ciencia, ciberseguridad y tecnología. Análisis diario sin ruido.",
 
   contact: {
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hola@example.com",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contacto@silicio.blog",
   },
 
   legal: {
@@ -19,10 +19,10 @@ export const siteConfig = {
   },
 
   social: {
-    twitter: "@silicio_tech",
-    twitterUrl: "https://twitter.com/silicio_tech",
-    linkedin: "https://linkedin.com/company/silicio-tech",
-    github: "https://github.com/silicio-tech",
+    twitter: "@silicio_blog",
+    twitterUrl: "https://twitter.com/silicio_blog",
+    linkedin: "https://linkedin.com/company/silicio-blog",
+    github: "https://github.com/silicio-blog",
   },
 
   // IDs de servicios externos. Vacíos = desactivado.
