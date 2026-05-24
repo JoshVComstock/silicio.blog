@@ -71,7 +71,7 @@ const HomePage = async () => {
 
           <Separator className="mb-12" />
 
-          {/* Newsletter CTA mid-page */}
+          {/* TODO: reactivar suscripción cuando esté lista
           <section className="mb-12 rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 px-6 py-10 sm:px-12 sm:py-14 text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-3">
               Newsletter semanal
@@ -90,6 +90,7 @@ const HomePage = async () => {
               +12.000 suscriptores · Sin spam · Cancela cuando quieras
             </p>
           </section>
+          */}
 
           {/* Category sections + Trending sidebar */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 pb-16">
@@ -119,9 +120,10 @@ const HomePage = async () => {
                 </div>
               </div>
 
+              {/* TODO: reactivar suscripción cuando esté lista
               <Separator />
-
               <NewsletterForm variant="card" />
+              */}
             </aside>
           </div>
         </div>

@@ -154,8 +154,10 @@ const ArticlePage = async ({ params }: PageProps) => {
                 <p className="text-base leading-relaxed">{article.excerpt}</p>
               </div>
 
-              {/* Mobile TOC */}
-              <TableOfContents headings={headings} />
+              {/* TOC — solo mobile (desktop va en el aside derecho) */}
+              <div className="lg:hidden">
+                <TableOfContents headings={headings} variant="mobile" />
+              </div>
 
               {/* Article body */}
               <ArticleBody body={article.body} />
@@ -206,7 +208,7 @@ const ArticlePage = async ({ params }: PageProps) => {
                 </p>
               )}
 
-              {/* Newsletter CTA */}
+              {/* TODO: reactivar suscripción cuando esté lista
               <div className="rounded-xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-primary/20 px-5 py-6 mb-8">
                 <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">
                   Newsletter
@@ -217,6 +219,7 @@ const ArticlePage = async ({ params }: PageProps) => {
                 </p>
                 <NewsletterForm />
               </div>
+              */}
 
               {/* Comments placeholder */}
               <div className="rounded-xl border border-dashed border-border p-6 text-center">
@@ -226,9 +229,9 @@ const ArticlePage = async ({ params }: PageProps) => {
               </div>
             </article>
 
-            {/* Sidebar TOC */}
+            {/* Sidebar TOC — solo desktop */}
             <aside className="hidden lg:block">
-              <TableOfContents headings={headings} />
+              <TableOfContents headings={headings} variant="desktop" />
             </aside>
           </div>
 

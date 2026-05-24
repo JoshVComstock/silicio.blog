@@ -34,11 +34,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: siteConfig.name,
   authors: [{ name: siteConfig.legal.owner }],
-  manifest: "/manifest.webmanifest",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
+  // manifest temporalmente comentado: apunta a icons que ya no existen
+  // manifest: "/manifest.webmanifest",
+  // Sin `icons` aquí: lo genera `src/app/icon.tsx` dinámicamente con esquinas circulares
   openGraph: {
     siteName: siteConfig.name,
     locale: "es_ES",

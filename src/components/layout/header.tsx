@@ -9,8 +9,8 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { CATEGORIES } from "@/lib/categories";
-import LogoDark from "@/assets/LogoDark.png";
-import LogoWhite from "@/assets/LogoWhite.png";
+import LogoDark from "@/assets/logoTextWhite.png";
+import LogoWhite from "@/assets/logoTextModeDark.png";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -20,25 +20,19 @@ export const Header = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Silicio - Inicio">
             <Image
               src={LogoDark}
               alt=""
-              width={32}
-              height={32}
-              className="h-8 w-8 dark:hidden"
+              className="w-28 dark:hidden"
               priority
             />
             <Image
               src={LogoWhite}
               alt=""
-              width={32}
-              height={32}
-              className="h-8 w-8 hidden dark:block"
+              className="w-28 hidden dark:block"
               priority
             />
-            <span className="text-lg font-bold tracking-tight">Silicio</span>
           </Link>
 
           {/* Desktop nav */}
@@ -74,6 +68,7 @@ export const Header = () => {
 
             <ThemeToggle />
 
+            {/* TODO: reactivar suscripción cuando esté lista
             <Link
               href="/newsletter"
               className={cn(
@@ -83,6 +78,7 @@ export const Header = () => {
             >
               Suscribirse
             </Link>
+            */}
 
             {/* Mobile menu button */}
             <Button
@@ -125,6 +121,7 @@ export const Header = () => {
               <Search className="h-4 w-4" />
               Buscar
             </Link>
+            {/* TODO: reactivar suscripción cuando esté lista
             <div className="pt-2 border-t border-border mt-2">
               <Link
                 href="/newsletter"
@@ -137,6 +134,7 @@ export const Header = () => {
                 Suscribirse al newsletter
               </Link>
             </div>
+            */}
           </nav>
         </div>
       )}

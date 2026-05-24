@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Rss } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
-import LogoDark from "@/assets/LogoDark.png";
-import LogoWhite from "@/assets/LogoWhite.png";
+import LogoDark from "@/assets/logoTextWhite.png";
+import LogoWhite from "@/assets/logoTextModeDark.png";
 
 const XIcon = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -30,9 +30,8 @@ export const Footer = () => (
         {/* Brand */}
         <div className="lg:col-span-1">
           <Link href="/" className="flex items-center gap-2 mb-3">
-            <Image src={LogoDark} alt="" width={28} height={28} className="h-7 w-7 dark:hidden" />
-            <Image src={LogoWhite} alt="" width={28} height={28} className="h-7 w-7 hidden dark:block" />
-            <span className="text-base font-bold">Silicio</span>
+            <Image src={LogoDark} alt="" className="w-36 dark:hidden" />
+            <Image src={LogoWhite} alt="" className="w-28 hidden dark:block" />
           </Link>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Tu medio en español sobre IA, ciencia, ciberseguridad y tecnología. Análisis diario sin ruido.
@@ -56,7 +55,7 @@ export const Footer = () => (
             >
               <LinkedInIcon className="h-4 w-4" />
             </a>
-            <a
+            {/* <a
               href="https://github.com/silicio-tech"
               target="_blank"
               rel="noopener noreferrer"
@@ -64,7 +63,7 @@ export const Footer = () => (
               className="text-muted-foreground hover:text-primary transition-colors"
             >
               <GithubIcon className="h-4 w-4" />
-            </a>
+            </a> */}
             <Link
               href="/rss.xml"
               aria-label="RSS Feed"
@@ -101,11 +100,13 @@ export const Footer = () => (
                 Sobre nosotros
               </Link>
             </li>
+            {/* TODO: reactivar suscripción cuando esté lista
             <li>
               <Link href="/newsletter" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 Newsletter
               </Link>
             </li>
+            */}
             <li>
               <Link href="/buscar" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                 Buscar

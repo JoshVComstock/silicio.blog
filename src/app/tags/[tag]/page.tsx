@@ -74,7 +74,9 @@ const TagPage = async ({ params }: PageProps) => {
 
             <aside className="space-y-8">
               <TrendingList articles={trending} />
+              {/* TODO: reactivar suscripción cuando esté lista
               <NewsletterForm variant="card" />
+              */}
             </aside>
           </div>
         </div>
