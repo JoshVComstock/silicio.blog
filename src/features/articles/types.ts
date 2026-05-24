@@ -1,4 +1,4 @@
-import type { CategorySlug, FAQ } from '@/lib/types';
+import type { ArticleType, CategorySlug, FAQ, Source } from '@/lib/types';
 
 // Shape exacto que devuelve el server Express para un artículo.
 // Diferente al tipo `Article` de dominio (lib/types.ts) en estos puntos:
@@ -15,12 +15,14 @@ export interface ApiArticle {
   tags: string[];
   series: string | null;
   status: 'DRAFT' | 'PUBLISHED' | 'SCHEDULED' | 'ARCHIVED';
+  articleType?: ArticleType;
   featured: boolean;
   featuredImage: string;
   featuredImageAlt: string;
   readingTime: number;
   views: number;
   faqs: FAQ[] | null;
+  sources?: Source[] | null;
   publishedAt: string | null;
   scheduledAt: string | null;
   authorId: string;

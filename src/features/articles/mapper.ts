@@ -21,7 +21,9 @@ export function toArticle(a: ApiArticle): Article {
     featuredImage: a.featuredImage,
     featuredImageAlt: a.featuredImageAlt,
     featured: a.featured,
+    articleType: a.articleType,
     faqs: a.faqs ?? undefined,
+    sources: a.sources ?? undefined,
   };
 }
 

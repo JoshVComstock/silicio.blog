@@ -43,6 +43,7 @@ const CATEGORY_NAME: Record<string, string> = {
 export const buildNewsArticleJsonLd = (article: Article) => {
   const url = `${siteConfig.url}/${article.category}/${article.slug}`;
   const wordCount = article.body.split(/\s+/).length;
+  const hasSources = article.sources && article.sources.length > 0;
 
   return {
     "@context": "https://schema.org",
@@ -64,6 +65,15 @@ export const buildNewsArticleJsonLd = (article: Article) => {
     wordCount,
     inLanguage: "es",
     isAccessibleForFree: true,
+    // Cuando el agente cita fuentes (grounding), las exponemos como `citation`
+    // — Google lo lee como señal de E-E-A-T (verificabilidad).
+    ...(hasSources && {
+      citation: article.sources!.map((s) => ({
+        "@type": "CreativeWork",
+        url: s.url,
+        name: s.title,
+      })),
+    }),
   };
 };
 

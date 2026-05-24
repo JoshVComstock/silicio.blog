@@ -15,6 +15,19 @@ export interface Author {
   bio?: string;
 }
 
+export type ArticleType =
+  | "NEWS"
+  | "TUTORIAL"
+  | "GUIDE"
+  | "COMPARISON"
+  | "TIPS"
+  | "DEEP_DIVE";
+
+export interface Source {
+  url: string;
+  title: string;
+}
+
 export interface Article {
   id: string;
   slug: string;
@@ -24,6 +37,7 @@ export interface Article {
   category: CategorySlug;
   tags: string[];
   series?: string;
+  articleType?: ArticleType;
   author: Author;
   publishedAt: string;
   updatedAt: string;
@@ -33,6 +47,7 @@ export interface Article {
   featuredImageAlt: string;
   featured?: boolean;
   faqs?: FAQ[];
+  sources?: Source[] | null;
 }
 
 export interface FAQ {

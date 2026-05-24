@@ -10,6 +10,7 @@ import { CategoryBadge } from "@/components/article/category-badge";
 import { AuthorMeta } from "@/components/article/author-meta";
 import { ShareButtons } from "@/components/article/share-buttons";
 import { TableOfContents } from "@/components/article/table-of-contents";
+import { SourcesList } from "@/components/article/sources-list";
 import { ArticleCard } from "@/components/article/article-card";
 import { NewsletterForm } from "@/components/home/newsletter-form";
 import { ArticleBody } from "./article-body";
@@ -188,6 +189,11 @@ const ArticlePage = async ({ params }: PageProps) => {
 
               {/* Article body */}
               <ArticleBody body={article.body} />
+
+              {/* Fuentes consultadas (si el agente IA citó alguna) */}
+              {article.sources && article.sources.length > 0 && (
+                <SourcesList sources={article.sources} />
+              )}
 
               {/* Tags */}
               {article.tags.length > 0 && (
