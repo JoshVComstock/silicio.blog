@@ -10,6 +10,12 @@ import { TrendingList } from "@/components/home/trending-list";
 import { getArticlesByCategory } from "@/features/articles";
 import { CATEGORIES, getCategoryBySlug } from "@/lib/categories";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/lib/site-config";
+import {
+  buildBreadcrumbJsonLd,
+  buildCollectionPageJsonLd,
+  jsonLdScript,
+} from "@/lib/jsonld";
 
 interface PageProps {
   params: Promise<{ categoria: string }>;
@@ -53,9 +59,22 @@ const CategoryPage = async ({ params, searchParams }: PageProps) => {
     allArticles.some((a) => a.tags.includes(t))
   );
 
+  const categoryUrl = `${siteConfig.url}/${categoria}`;
+  const jsonLdBlocks = [
+    buildCollectionPageJsonLd(category, categoryUrl),
+    buildBreadcrumbJsonLd([
+      { name: "Inicio", url: siteConfig.url },
+      { name: category.name, url: categoryUrl },
+    ]),
+  ];
+
   return (
     <>
       <Header />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(jsonLdBlocks)}
+      />
       <main className="flex-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <BreadcrumbNav crumbs={[{ label: category.name }]} />

@@ -17,6 +17,13 @@ import { getAllArticles, getArticleBySlug, getRelatedArticles } from "@/features
 import { getCategoryBySlug } from "@/lib/categories";
 import { extractHeadings, formatDate } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
+import { siteConfig } from "@/lib/site-config";
+import {
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+  buildNewsArticleJsonLd,
+  jsonLdScript,
+} from "@/lib/jsonld";
 
 interface PageProps {
   params: Promise<{ categoria: string; slug: string }>;
@@ -32,23 +39,46 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
   const article = await getArticleBySlug(slug);
   if (!article || article.category !== categoria) return {};
 
+  const url = `${siteConfig.url}/${article.category}/${article.slug}`;
+  // Description: usar el excerpt, truncado a ~155 chars (límite de Google SERP)
+  const description =
+    article.excerpt.length > 155
+      ? article.excerpt.slice(0, 152).trimEnd() + "…"
+      : article.excerpt;
+
   return {
     title: article.title,
-    description: article.excerpt,
+    description,
+    alternates: { canonical: url },
+    keywords: article.tags,
+    authors: [{ name: article.author.name, url: `${siteConfig.url}/sobre` }],
     openGraph: {
       title: article.title,
-      description: article.excerpt,
+      description,
+      url,
       type: "article",
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
       authors: [article.author.name],
-      images: [{ url: article.featuredImage, alt: article.featuredImageAlt }],
+      section: categoria,
+      tags: article.tags,
+      images: [
+        {
+          url: article.featuredImage,
+          width: 1200,
+          height: 630,
+          alt: article.featuredImageAlt,
+        },
+      ],
+      locale: "es_ES",
+      siteName: siteConfig.name,
     },
     twitter: {
       card: "summary_large_image",
       title: article.title,
-      description: article.excerpt,
+      description,
       images: [article.featuredImage],
+      creator: siteConfig.social.twitter,
     },
   };
 };
@@ -63,29 +93,26 @@ const ArticlePage = async ({ params }: PageProps) => {
   const related = await getRelatedArticles(article);
   const headings = extractHeadings(article.body);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: article.title,
-    description: article.excerpt,
-    image: article.featuredImage,
-    datePublished: article.publishedAt,
-    dateModified: article.updatedAt,
-    keywords: article.tags.join(", "),
-    author: { "@type": "Person", name: article.author.name },
-    publisher: {
-      "@type": "Organization",
-      name: "Silicio",
-      logo: { "@type": "ImageObject", url: "https://silicio.tech/logo.png" },
-    },
-  };
+  // Construye 3 bloques JSON-LD: NewsArticle + Breadcrumb + FAQ (si hay)
+  const articleUrl = `${siteConfig.url}/${article.category}/${article.slug}`;
+  const jsonLdBlocks: unknown[] = [
+    buildNewsArticleJsonLd(article),
+    buildBreadcrumbJsonLd([
+      { name: "Inicio", url: siteConfig.url },
+      { name: category?.name ?? categoria, url: `${siteConfig.url}/${categoria}` },
+      { name: article.title, url: articleUrl },
+    ]),
+  ];
+  if (article.faqs && article.faqs.length > 0) {
+    jsonLdBlocks.push(buildFaqJsonLd(article.faqs));
+  }
 
   return (
     <>
       <Header />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={jsonLdScript(jsonLdBlocks)}
       />
       <main className="flex-1">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">

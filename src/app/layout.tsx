@@ -6,6 +6,11 @@ import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { GoogleAdsense } from "@/components/analytics/google-adsense";
 import { CookieConsent } from "@/components/layout/cookie-consent";
 import { siteConfig } from "@/lib/site-config";
+import {
+  buildOrganizationJsonLd,
+  buildWebSiteJsonLd,
+  jsonLdScript,
+} from "@/lib/jsonld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -89,6 +94,14 @@ const RootLayout = ({
     <head>
       <GoogleAnalytics />
       <GoogleAdsense />
+      {/* JSON-LD global: declara qué es el sitio + organización editora */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript([
+          buildWebSiteJsonLd(),
+          buildOrganizationJsonLd(),
+        ])}
+      />
     </head>
     <body className="min-h-screen flex flex-col bg-background text-foreground">
       <ThemeProvider
