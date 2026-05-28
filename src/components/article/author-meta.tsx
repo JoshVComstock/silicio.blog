@@ -35,12 +35,12 @@ export const AuthorMeta = ({ article, showViews = true, compact = false }: Autho
         <Clock className="h-3.5 w-3.5" />
         {article.readingTime} min de lectura
       </span>
-      {showViews && (
+      {/* {showViews && (
         <span className="flex items-center gap-1.5">
           <Eye className="h-3.5 w-3.5" />
           {article.views.toLocaleString("es-ES")} vistas
         </span>
-      )}
+      )} */}
     </div>
   );
 }
